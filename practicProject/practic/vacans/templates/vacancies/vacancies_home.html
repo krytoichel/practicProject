@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Vacancies</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .job-card {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .job-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .job-details {
+            margin-top: 15px;
+        }
+
+        .job-details p {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+
+        .apply-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .apply-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    {% for el in vacancies1 %}
+        <div class="job-card">
+        <div class="job-header">
+            {{ el.job_title }}
+        </div>
+        <div class="job-details">
+            <p class="salary">{{el.salary}} руб</p>
+<!--            <p class="exp">Опыт {{el.exp}} г</p>-->
+            <p class="comp">{{el.company}}</p>
+            <p class="adr">{{el.city}}</p>
+        </div>
+        <button class="apply-button">Откликнуться</button>
+
+    </div>
+    {% endfor %}
+</body>
