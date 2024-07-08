@@ -45,8 +45,8 @@ def search(request):
             salary = "Не указана"
 
         sleep(1)
-        vacancies = Vacancies(job_title=search(request)['position'], salary=search(request)['salary'],
-                              company=search(request)['comp'], city=search(request)['adr'])
+        vacancies = Vacancies(job_title=position, salary=salary,
+                              company=comp, city=addres)
         vacancies.save()
 
     # id = 122125
