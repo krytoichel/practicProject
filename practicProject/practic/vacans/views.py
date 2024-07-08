@@ -45,6 +45,7 @@ def search(request):
             salary = "Не указана"
 
         sleep(1)
+        # Запись в БД одной вакансии
         vacancies = Vacancies(job_title=position, salary=salary,
                               company=comp, city=addres)
         vacancies.save()
@@ -67,16 +68,17 @@ def search(request):
     return redirect('vacans/')
 
 def vacancies_home(request):
+    # Удаляем все записи с БД перед поиском
+    vacancies1 = Vacancies.objects.all().delete()
 
-
+    # Функция поиска
     search(request)
-    # vacancies = Vacancies(job_title=search(request)['position'],salary=search(request)['salary'],company=search(request)['comp'],city=search(request)['adr'])
-    # vacancies.save()
 
+    # Получение всех записей с БД
     vacancies1 = Vacancies.objects.all()
 
 
-    # print(search(request))
+    # Работа с GET запросом отправляемым с формы на главном экране
     print(request.GET.get("position"))
     print(request.GET.get("exp"))
     print(request.GET.get("workForm"))
@@ -84,7 +86,7 @@ def vacancies_home(request):
 
 
 
-    # responce = requests.get("https://api.hh.ru/vacancies")
 
+    # Отправление с ранее полученых данных БД в шаблон HTML
     return render(request, 'vacancies/vacancies_home.html', {'vacancies1': vacancies1})
 
