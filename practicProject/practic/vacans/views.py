@@ -82,7 +82,11 @@ def vacancies_home(request):
     print(request.GET.get("position"))
     print(request.GET.get("exp"))
     print(request.GET.get("workForm"))
-    print(request.GET.get("salary"))
+    print(request.GET.get("workForm1"))
+    print(request.GET.get("workForm2"))
+    print(request.GET.get("workForm3"))
+    print(request.GET.get("workForm4"))
+    print(request.GET.get("slider"))
 
 
 

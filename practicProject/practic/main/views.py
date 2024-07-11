@@ -27,7 +27,7 @@ def create(request):
 
     data = {
         'form': form,
-        'error': error
+        'error': error,
     }
 
     return render(request, 'main/index.html', data)

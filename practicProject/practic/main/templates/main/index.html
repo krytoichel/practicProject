@@ -8,10 +8,25 @@
 <!--        {% csrf_token %}-->
         {{ form.position }}<br>
         {{ form.exp }}<br>
-        {{ form.workForm }}<br>
-        {{ form.salary }}<br>
+        Полный день{{ form.workForm }}<br>
+        Сменный график {{ form.workForm1}}<br>
+        Гибкий график {{ form.workForm2 }}<br>
+        Удаленная работа {{ form.workForm3 }}<br>
+        Вахтовый метод {{ form.workForm4 }}<br>
+        {{ form.slider }}<br>
+        <output id="current-salary">30,000</output>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var slider = document.getElementById('salary-slider');
+                    var output = document.getElementById('current-salary');
 
-        <span>{{ error }}</span>
+                    slider.addEventListener('input', function() {
+                        output.textContent = this.value;
+                    });
+                });
+            </script>
+
+        <span>{{ error }}</span><br>
         <button class="btn btn-success" type="submit">Отправить</button>
     </form>
 
