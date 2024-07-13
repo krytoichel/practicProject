@@ -1,9 +1,11 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from .models import Vacancies
 from django.http import HttpResponse
 import requests
 import json
 from time import sleep
+from django.views.generic import ListView
 
 #from practic.main.models import SearchReq
 #from ...practic.main.models import SearchReq
@@ -74,9 +76,14 @@ def vacancies_home(request):
     # Функция поиска
     search(request)
 
+
     # Получение всех записей с БД
     vacancies1 = Vacancies.objects.all()
 
+    paginator = Paginator(vacancies1, 2)  # Show 25 contacts per page.
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
     # Работа с GET запросом отправляемым с формы на главном экране
     print(request.GET.get("position"))
@@ -92,5 +99,5 @@ def vacancies_home(request):
 
 
     # Отправление с ранее полученых данных БД в шаблон HTML
-    return render(request, 'vacancies/vacancies_home.html', {'vacancies1': vacancies1})
+    return render(request, 'vacancies/vacancies_home.html', {'page_obj': page_obj,'vacancies1': vacancies1})
 
