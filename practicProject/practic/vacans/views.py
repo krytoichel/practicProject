@@ -24,7 +24,7 @@ def search(request):
     with open('downloaded_file.json', encoding='utf-8') as file:
         data = json.load(file)
 
-    for i in range(5):
+    for i in range(len(data['items'])):
         item = data['items'][i]
         salary = item['salary']
         position = item['name']
