@@ -5,6 +5,7 @@ from django.http import HttpResponse
 import requests
 import json
 from time import sleep
+import os
 from django.views.generic import ListView
 
 #from practic.main.models import SearchReq
@@ -12,16 +13,25 @@ from django.views.generic import ListView
 # Create your views here.
 
 user_agent = {'User-Agent': 'MyApp/1.0 (krytoich@gmail.com)'}
-
+r = []
 def search(request):
-    responce = requests.get("https://api.hh.ru/vacancies?text=" + str(request.GET.get("position")))
+    p = str(request.GET.get("position"))
+    r.append(p)
+    print(r)
+    print("https://api.hh.ru/vacancies?text="+r[0])
+    responce = requests.get("https://api.hh.ru/vacancies?text="+r[0])
+    # str(request.GET.get("position"))
+    if os.path.exists('vacans/downloaded_file.json'):
+        # Удаляем файл
+        os.remove('vacans/downloaded_file.json')
+        print('Удаление файла.')
 
     if responce.status_code == 200:
         # Сохраняем ответ в файл
-        with open('downloaded_file.json', 'wb') as file:
-            file.write(responce.content)
+        with open('vacans/downloaded_file.json', 'w', encoding='utf-8') as file:
+            file.write(responce.text)
 
-    with open('downloaded_file.json', encoding='utf-8') as file:
+    with open('vacans/downloaded_file.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
 
     for i in range(len(data['items'])):
@@ -100,4 +110,3 @@ def vacancies_home(request):
 
     # Отправление с ранее полученых данных БД в шаблон HTML
     return render(request, 'vacancies/vacancies_home.html', {'page_obj': page_obj,'vacancies1': vacancies1})
-
