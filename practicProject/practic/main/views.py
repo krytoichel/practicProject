@@ -29,6 +29,7 @@ def search(request):
         with open('vacans/downloaded_file.json', 'w', encoding='utf-8') as file:
             file.write(responce.text)
 
+
     with open('vacans/downloaded_file.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
 
@@ -42,15 +43,18 @@ def search(request):
 
         if addres == None:
             addres = item['area']['name']
+        elif addres != None:
+            addres = "г."+str(item['address']['city'])+", "+str(item['address']['street'])
 
         # Проверяем, что 'from' существует и не равно None
         if salary != None:
             if salary['from'] is not None:
                 # Если 'from' существует и имеет значение, выводим его
-                salary['from'] = salary['from']
+                salary = str(salary['from']) + " - " + str(salary['to']) + " " + salary['currency']
             else:
                 # В противном случае выводим сообщение об отсутствии значения
                 salary['from'] = "0"
+                salary = str(salary['from']) + " - " + str(salary['to']) + " " + salary['currency']
         elif salary is None:
             salary = "Не указана"
 

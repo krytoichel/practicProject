@@ -1,4 +1,7 @@
 from django.db import models
+import django.utils.encoding
+
+from django.utils.encoding import smart_str
 
 # Create your models here.
 
